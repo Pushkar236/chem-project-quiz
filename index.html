@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChemOmania</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('https://img.freepik.com/free-vector/retro-science-background_23-2148557500.jpg?w=900&t=st=1697596145~exp=1697596745~hmac=4914a079f2a966ebe341ffd69722a50d1ec327c576815c7a869d47cee46b6db7') no-repeat center center fixed;
+            background-size: cover;
+            font-family: 'Open Sans', sans-serif;
+            color: #fff;
+        }
+
+        .title {
+            margin: 0;
+            padding: 20px 0;
+            font-size: 48px;
+            text-align: center;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            color: #ff5733;
+        }
+
+        .section, .student-info-form {
+            text-align: center;
+            margin: 20px auto;
+            padding: 60px;
+            max-width: 800px;
+            background-color: rgba(255, 253, 243, 0.736);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .section p {
+            margin: 5px auto;
+            font-size: 25px;
+            color: #333;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .show-notes-button {
+            margin-right: 30px;
+        }
+
+        .show-notes-button,
+        .take-test-button {
+            background-color: #e3b03d;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            max-width: fit-content;
+            transition: background-color 0.3s;
+            animation: fadeIn 1s ease-in-out;
+            font-size: larger;
+        }
+
+        .show-notes-button:hover,
+        .take-test-button:hover {
+            background-color: #ff5733;
+        }
+
+        .table-container, .student-info-form {
+            position: absolute;
+            top: 275px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: none;
+        }
+
+        table {
+            max-width: 800px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ffffff;
+            padding: 10px;
+            text-align: center;
+            color: #fff;
+            background-color: #383837bd;
+        }
+
+        th:nth-child(1) {
+            width: 10%;
+        }
+
+        th:nth-child(2) {
+            width: 60%;
+        }
+
+        th:nth-child(3) {
+            width: 30%;
+        }
+
+        .download-button {
+            border: 2px solid #ffffff;
+            background-color: #e3b03d;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            display: inline-block;
+            transition: background-color 0.3s;
+        }   
+
+        .download-button:hover {
+            background-color: #ff5733;
+            transform: scale(1.05);
+        }
+
+        .back-button {
+            background-color: #ff5733;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            max-width: fit-content;
+            transition: background-color 0.3s;
+            animation: fadeIn 1s ease-in-out;
+            margin-top: 20px;
+            margin-left: 5px;
+            font-size: 20px;
+            border: none;
+        }
+
+        .back-button:hover {
+            background-color: #e3b03d;
+        }
+        
+        /* student form css */
+
+        .student-info-form {
+            text-align: center;
+            margin: 20px auto;
+            padding: 70px 150px 70px 150px; /* Increased padding for better spacing */
+            width: auto;
+            height: fit-content;
+            background-color: rgba(255, 253, 243, 0.736);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .student-info-form h2 {
+            font-size: 35px;
+            margin-bottom: 20px; /* Improved spacing */
+            color: #ff5733; /* Title color */
+        }
+
+        .student-info-form label {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 20px; /* Improved spacing */
+        }
+
+        .student-info-form input {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            border: 1px solid #ccc; /* Changed border color */
+            border-radius: 5px;
+            margin-bottom: 20px; /* Improved spacing */
+        }
+
+        /* Add a border to the "Submit Info" and "Back to Home" buttons */
+        .student-info-form button {
+            margin-left: 30px;
+            background-color: #ff5733;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            max-width: fit-content;
+            transition: background-color 0.3s;
+            font-size: 20px;
+            border: 2px solid #000; /* Add a border here */
+        }
+
+        /* Add hover effect for the buttons with border */
+        .student-info-form button:hover {
+            background-color: #e3b03d;
+            border: 2px solid #000; /* Change the border color on hover */
+        }
+
+        .student-info-form #error-message {
+            color: red;
+            margin-top: 10px; /* Improved spacing */
+        }
+
+        /* form name and filling edit */
+        .form-group {
+            display: flex; /* Use flex display to align label and input elements */
+            align-items: center;
+            justify-content: space-between; /* Add space between label and input */
+            margin-bottom: 20px;
+        }
+        .form-group:nth-child(2) {
+            margin-top: 20px;
+        }
+        .form-group label {
+            font-size: 30px;
+            width: 120px;
+            margin-right: 10px;
+            text-align: right; /* Align the label to the right */
+        }
+
+        .form-group input {
+            flex: 1; /* Allow the input to grow and fill remaining space */
+            padding: 10px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0; /* Remove the margin from the last form group */
+        }
+
+
+        /* Add this CSS to style the result table */
+.table-container table {
+    width: 100%;
+    background-color: rgba(255, 253, 243, 0.736);
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+  }
+  
+  .table-container th,
+  .table-container td {
+    border: 1px solid #ccc;
+    padding: 15px;
+    text-align: center;
+    color: #333;
+  }
+  
+  .table-container th {
+    background-color: #e3b03d;
+    color: #fff;
+  }
+  
+  .table-container td {
+    background-color: #fff;
+    color: #333;
+  }
+  
+  /* Add a border to the result table cells */
+  .table-container th:nth-child(1),
+  .table-container td:nth-child(1) {
+    width: 10%;
+    border-right: none;
+  }
+  
+  .table-container th:nth-child(2),
+  .table-container td:nth-child(2) {
+    width: 60%;
+  }
+  
+  .table-container th:nth-child(3),
+  .table-container td:nth-child(3) {
+    width: 30%;
+    border-left: none;
+  }
+  
+  /* Style the "Back to Home" button for the result table */
+  .table-container .back-button {
+    margin: 20px auto;
+    display: block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    max-width: fit-content;
+    transition: background-color 0.3s;
+    animation: fadeIn 1s ease-in-out;
+    font-size: 20px;
+    border: none;
+    background-color: #ff5733;
+    color: #fff;
+  }
+  
+  /* Add hover effect for the "Back to Home" button */
+  .table-container .back-button:hover {
+    background-color: #e3b03d;
+  }
+  
+    </style>
+</head>
+<body>
+    <div class="title">
+        <h1>Chem-&#129312;-Mania</h1>
+    </div>
+
+    <div class="section">
+        <div class="text" style="margin-bottom: 50px;">
+            <p>Welcome to our Chemistry resources.</p>
+            <p>You can access study notes by clicking "<u>Show Notes</u>" </p>
+            <p>& test your knowledge by clicking "<u>Take Test</u>" </p>
+            <p>Explore the exciting world of Chemistry!</p>
+        </div>
+        <div class="button-container">
+            <button class="show-notes-button" onclick="toggleTable()">Show Notes</button>
+            <button class="take-test-button" onclick="showStudentInfoForm()">Take Test</button>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <tr>
+                <th>Unit No.</th>
+                <th>Unit Name</th>
+                <th>Download Notes</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Water Technology and Green Chemistry</td>
+                <td><a class="download-button" href="PDF/greenchem.pdf" download>Download</a></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Instrumental Analysis and Battery Technology</td>
+                <td><a class="download-button" href="PDF/battery.pdf" download>Download</a></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>IR Spectroscopy</td>
+                <td><a class="download-button" href="PDF/ir.pdf" download>Download</a></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Fuel</td>
+                <td><a class="download-button" href="PDF/fuel.pdf" download>Download</a></td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Corrosion</td>
+                <td><a class="download-button" href="PDF/corrosion.pdf" download>Download</a></td>
+            </tr>   
+        </table>
+        <button class="back-button" onclick="toggleTable()" style="margin-left: 890px;border: 2px solid #000;">Hide Notes</button>
+    </div>
+
+   
+    <script>
+        function toggleTable() {
+            var table = document.querySelector('.table-container');
+            var section = document.querySelector('.section');
+            var studentInfoForm = document.querySelector('.student-info-form');
+    
+            if (table.style.display === 'none' || table.style.display === '') {
+                table.style.display = 'block';
+                section.style.display = 'none';
+                studentInfoForm.style.display = 'none';
+            } else {
+                table.style.display = 'none';
+                section.style.display = 'block';
+                studentInfoForm.style.display = 'none';
+            }
+        }
+    
+        function showStudentInfoForm() {
+            window.location.href = 'quiz.html';
+        }
+    
+        function goBackToHome() {
+            var section = document.querySelector('.section');
+            var studentInfoForm = document.querySelector('.student-info-form');
+            studentInfoForm.style.display = 'none';
+            section.style.display = 'block';
+        }
+    
+
+    </script>
+    
+</body>
+</html>

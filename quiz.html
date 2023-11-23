@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chemistry Quiz</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+    <style>
+        
+body {
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+    background: url('https://img.freepik.com/free-vector/retro-science-background_23-2148557500.jpg?w=900&t=st=1697596145~exp=1697596745~hmac=4914a079f2a966ebe341ffd69722a50d1ec327c576815c7a869d47cee46b6db7') no-repeat center center fixed;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 150px;
+    color: #ffffff;
+  }
+  
+  #quiz-container {
+    background-color: rgb(55 50 48);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin: -50px 0px 0px 490px;
+    max-width: 600px;
+  }
+  
+  h1 {
+    color: #ff5733;
+    margin: -90px 0px 90px 10px ;
+    padding: 20px 0;
+    font-size: 80px;
+  }
+  
+  #question-container {
+    font-family: monospace;
+    color: #000000;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    font-size: 20px;
+  }
+  
+  #options-container {
+    text-align: left;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+  
+  input[type="radio"] {
+    margin-right: 10px;
+  }
+  #next-button {
+    margin-left: 240px;
+    font-family: monospace;
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    border-radius: 8px;
+    width: 100px;
+    height: 45px;
+    transition: .3s;
+  }
+  
+  #next-button:hover {
+    background-color: #ffb300;
+    box-shadow: 0 0 0 5px #3b4143d3;
+    color: #fff;
+  }
+  
+  
+  #result-container {
+    display: none;
+    margin: 30px 475px 0px 475px;
+    padding: 20px;
+    background-color: rgb(55 50 48);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  #result-message {
+    font-weight: bold;
+    font-size: 24px;
+  }
+  
+  #retake-button {
+    background-color: #d7ac47;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+         /* student form css */
+
+         .student-info-form {
+            text-align: center;
+            margin: 0px 275px 0px 275px;
+            padding: 70px 150px 70px 150px; /* Increased padding for better spacing */
+            width: auto;
+            height: fit-content;
+            background-color: rgba(255, 253, 243, 0.736);
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .student-info-form h2 {
+            font-size: 35px;
+            margin-bottom: 20px; /* Improved spacing */
+            color: #ff5733; /* Title color */
+        }
+
+        .student-info-form label {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 20px; /* Improved spacing */
+        }
+
+        .student-info-form input {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            border: 1px solid #ccc; /* Changed border color */
+            border-radius: 5px;
+            margin-bottom: 20px; /* Improved spacing */
+        }
+
+        /* Add a border to the "Submit Info" and "Back to Home" buttons */
+        .student-info-form button {
+            margin-left: 30px;
+            background-color: #ff5733;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            max-width: fit-content;
+            transition: background-color 0.3s;
+            font-size: 20px;
+            border: 2px solid #000; /* Add a border here */
+        }
+
+        /* Add hover effect for the buttons with border */
+        .student-info-form button:hover {
+            background-color: #e3b03d;
+            border: 2px solid #000; /* Change the border color on hover */
+        }
+
+        .student-info-form #error-message {
+            color: red;
+            margin-top: 10px; /* Improved spacing */
+        }
+
+        /* form name and filling edit */
+        .form-group {
+            display: flex; /* Use flex display to align label and input elements */
+            align-items: center;
+            justify-content: space-between; /* Add space between label and input */
+            margin-bottom: 20px;
+        }
+        .form-group:nth-child(2) {
+            margin-top: 20px;
+        }
+        .form-group label {
+            font-size: 30px;
+            width: 120px;
+            margin-right: 10px;
+            text-align: right; /* Align the label to the right */
+        }
+
+        .form-group input {
+            flex: 1; /* Allow the input to grow and fill remaining space */
+            padding: 10px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0; /* Remove the margin from the last form group */
+        }
+  
+        #show-result-button {
+            font-family: monospace;
+            background-color: #ffffff;
+            color: #000000;
+            border: none;
+            border-radius: 8px;
+            width: 130px; /* Adjusted width */
+            height: 50px; /* Adjusted height */
+            transition: .3s;
+        }
+        
+        #show-result-button:hover {
+            background-color: #ffb300;
+            box-shadow: 0 0 0 5px #3b4143d3;
+            color: #ffffff;
+        }
+        
+
+        #result-container {
+            display: none;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #000000de;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            max-width: 600px; /* Limit the width for better readability */
+            text-align: center;
+        }
+        
+        #result-message {
+            font-weight: bold;
+            font-size: 24px;
+            color: #000000;
+        }
+        
+        .result-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        
+        .result-table th,
+        .result-table td {
+            border: 1px solid #000000;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .result-table th {
+            background-color: #d7ac47;
+            color: #ffffff;
+        }
+        
+        .result-table td {
+            background-color: #ffffff;
+            color: #000000;
+        }
+        
+        #retake-button {
+            margin-left: 240px;
+            background-color: #d7ac47;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        
+  
+    </style>
+</head>
+<body>
+    <h1>Chem-&#129312;-Mania</h1>
+    
+    <!-- Student Info Form (copied from home.html) -->
+    <div class="student-info-form" style="color: #000000;">
+        <form id="student-form" action="javascript:void(0);" method="POST">
+            <div class="form-group">
+                <label for="studentName">Name:</label>
+                <input type="text" name="studentName" id="studentName" required>
+            </div>
+            <div class="form-group">
+                <label for="division">Division (A-Z):</label>
+                <input type="text" name="division" id="division" required pattern="[A-Za-z]{1}">
+            </div>
+            
+            <div class="form-group">
+                <label for="rollNumber">Roll No:</label>
+                <input type="number" name="rollNumber" id="rollNumber" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" style="margin-left: 250px" onclick="startQuiz(event)">Start Quiz</button>
+                <button class="back-button" onclick="goBackToHome()" style="margin-right: 200px;">Back to Home</button>
+            </div>
+        </form>
+        <p id="error-message" style="color: red; display: none;">Please fill out all fields.</p>
+    </div>
+
+    <div id="quiz-container" style="display: none;">
+        <div id="question-container">
+            <p id="question">Question 1: What is the chemical symbol for hydrogen?</p>
+        </div>  
+        <div id="option-container" style="text-align: left;">
+            <label><input type="radio" name="answer" value="A"> A) H</label>
+            <label><input type="radio" name="answer" value="B"> B) He</label>
+            <label><input type="radio" name="answer" value="C"> C) O</label>
+            <label><input type="radio" name="answer" value="D"> D) N</label>
+        </div>
+        <button id="next-button" style="font-size: x-large;">Next</button>
+        <button id="show-result-button" style="display: none; margin:auto;" onclick="showResult()">
+            <a style="text-decoration: none; font-size: 20px;">Show results</a>
+        </button><!-- Initially hidden -->
+    </div>
+    <!-- Result Container -->
+    <div id="result-container" style="display: none;">
+        <p id="result-message"></p>
+        <table class="result-table">
+            <thead>
+                <tr>
+                    <th>Question No</th>
+                    <th>Correct Answer</th>
+                    <th>User's Answer</th>
+                </tr>
+            </thead>
+            <tbody id="result-table-body">
+                <!-- This will be populated by JavaScript -->
+            </tbody>
+        </table>
+        <button id="retake-button" style="display: block;" onclick="goBackToQuiz()">Retake Quiz</button>
+        <div id="score-container" style="display: none;">
+            <h2>Your Score</h2>
+            <p id="score"></p>
+        </div>
+    </div>
+
+    
+
+
+
+
+
+    
+    <script src="quiz_script.js">
+    </script>
+</body>
+</html>
