@@ -1,3 +1,8 @@
+//option for  backend local storage 
+
+
+
+
 // Define your questions
 const questions = [
   {
@@ -29,7 +34,8 @@ const questions = [
     question: "What is the chemical formula for water?",
     options: ["H₂O", "CO₂", "CH₄", "O₂"],
     correctAnswer: "A"
-  }
+  },
+
 ];
 
 // Initialize quiz variables
@@ -145,16 +151,29 @@ document.querySelector("#next-button").addEventListener("click", function () {
   }
 });
 
+
+// Add an event listener to the "Show-result-button" button to load the next question
+document.querySelector("#show-result-button").addEventListener("click", function () {
+  const selectedAnswer = document.querySelector("input[name='answer']:checked");
+  if (selectedAnswer) {
+    userAnswers[currentQuestion] = selectedAnswer.value; // Record the answer for the current question
+    currentQuestion++;
+    loadQuestion(currentQuestion); // Load the next question
+  }
+});
+
+
 // Function to display quiz results
 function showResult() {
   const quizContainer = document.getElementById("quiz-container");
   const resultContainer = document.getElementById("result-container");
   const resultTable = document.getElementById("result-table-body");
 
+  const scoreContainer = document.getElementById("score-container");
   // Hide the quiz container and show the result container
   quizContainer.style.display = "none";
   resultContainer.style.display = "block"; // Note the corrected property name
-
+  scoreContainer.style.display = "block";
   // Display individual question results
   resultTable.innerHTML = "";
   for (let i = 0; i < questions.length; i++) {
@@ -165,19 +184,24 @@ function showResult() {
 
     if (userAnswer !== "" && userAnswer !== undefined) {
       newRow.insertCell(2).textContent = userAnswer;
-    } else {
-      newRow.insertCell(2).textContent = "Not answered"; // Display "Not answered" for unanswered questions
+    }else {
+      newRow.insertCell(2).textContent = "NotAnswred"; // Display "Not answered" for unanswered questions
     }
+    
   }
 }
 
 
 
 
+const scoreContainer = document.getElementById("score-container");
 
+
+// Assuming you have questions and userAnswers defined somewhere in your script
 
 // Calculate the quiz score
 function calculateScore() {
+
   let score = 0;
   for (let i = 0; i < questions.length; i++) {
     if (userAnswers[i] === questions[i].correctAnswer) {
@@ -186,6 +210,22 @@ function calculateScore() {
   }
   return score;
 }
+
+
+  // Function to display the quiz score
+  function displayScore() {
+    // Get the score element by its ID
+    var scoreElement = document.getElementById("quiz-score");
+
+    // Call the calculateScore function to get the score
+    var finalscore = calculateScore();
+
+    // Update the score element with the calculated score
+    scoreElement.textContent = `Your score is: ${finalscore} out of ${questions.length}`;
+  }
+
+  // Call the displayScore function when needed, for example, on button click
+  displayScore();
 
 // Add an event listener to the "Show Result" button
 document.querySelector("#show-result-button").addEventListener("click", showResult);
@@ -219,3 +259,4 @@ function resetQuiz() {
 // Hide the quiz and result container initially
 document.getElementById("quiz-container").style.display = "none";
 document.getElementById("result-container").style.display = "none";
+document.getElementById("score-container").style.display = "none";
